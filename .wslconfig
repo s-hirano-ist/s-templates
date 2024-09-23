@@ -1,0 +1,7 @@
+[wsl2]
+memory=8GB
+swap=8GB
+guiapplications=false
+[experimental]
+autoMemoryReclaim=dropcache
+sparseVhd=true

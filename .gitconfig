@@ -1,0 +1,13 @@
+[user]
+	email = s-hirano-ist@example.com
+	name = s-hirano-ist
+[fetch]
+	prune = true
+[init]
+	defaultBranch = main
+[credential "https://github.com"]
+	helper =
+[credential "https://gitlab.com"]
+	helper =
+[core]
+	autocrlf = false

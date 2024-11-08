@@ -1,5 +1,5 @@
 <!-- click on GO LIVE to activate on-time reload -->
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ja">
   <head>
     <meta charset="UTF-8" />
@@ -19,7 +19,7 @@
         image.width = 500;
         image.height = 300;
 
-        return new Promise((resolve) => {
+        return new Promise(resolve => {
           image.onload = () => {
             resolve(image);
           };
@@ -43,16 +43,16 @@
     <script>
       function addImageToDom(imagePath) {
         document.write(
-          `<div class="col s6"><img class="materialboxed" loading="lazy" width="100%" src=${imagePath}></div>`
+          `<div class="col s6"><img class="materialboxed" loading="lazy" width="100%" src=${imagePath}></div>`,
         );
       }
-      const imageDom = (imagePath) =>
+      const imageDom = imagePath =>
         `<div class="col s6"><img class="materialboxed" loading="lazy" width="100%" src=${imagePath}></div>`;
 
       function addImageList(tag, data) {
         let string =
           `<h6>${tag}</h6><div class="row">` +
-          data.map((imagePath) => imageDom(imagePath)).join("\n") +
+          data.map(imagePath => imageDom(imagePath)).join("\n") +
           "</div>";
         document.write(string);
       }

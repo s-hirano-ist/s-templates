@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: web-service
+spec:
+  selector: # 接続するPodを指定
+    svc2pod: web # このラベルが付与されたすべてのPodが指定される
+  ports:
+    - port: 80 # 外部に公開するポート
+      # protocol: TCP
+      # targetPort: 80
+      targetPort: http
+      nodePort: 30000 # ホスト外から接続で利用するポート
+  type: NodePort # NodePort: ホストのポートを公開してポートフォワーディングを行う

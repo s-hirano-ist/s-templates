@@ -1,0 +1,10 @@
+{
+  "recommendations": [
+    "editorconfig.editorconfig",
+    "esbenp.prettier-vscode",
+    "dbaeumer.vscode-eslint",
+    "prisma.prisma",
+    "humao.rest-client",
+    "ritwickdey.liveserver"
+  ]
+}

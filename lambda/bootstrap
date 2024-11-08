@@ -1,0 +1,45 @@
+#!/bin/sh
+
+set -euo pipefail
+
+while true
+do
+  HEADERS="$(mktemp)"
+  # Lambda can only write on /tmp directory
+  # /tmp directory must be initialized before action because lambda docker image is not initialized on every trigger
+  rm -r /tmp/*
+
+  # Get an event. The HTTP request will block until one is received
+
+  # WHEN RUNNING ON LOCAL DOCKER format of response of the following curl command is different from AWS Lambda and local Docker
+  # curl -sS -LD "$HEADERS" -o /tmp/input.zip -X GET "http://${AWS_LAMBDA_RUNTIME_API}/2018-06-01/runtime/invocation/next"
+
+  # WHEN RUNNING ON AWS LAMBDA
+  EVENT_DATA=$(curl -sS -LD "$HEADERS" -X GET "http://${AWS_LAMBDA_RUNTIME_API}/2018-06-01/runtime/invocation/next")
+
+  METHOD=$(echo $EVENT_DATA | jq -r .requestContext.http.method)
+  if [ $METHOD = "OPTION" ] # if request header is option then return success
+  then
+    curl -X POST "http://${AWS_LAMBDA_RUNTIME_API}/2018-06-01/runtime/invocation/$REQUEST_ID/response"  -d "hello! I am working"
+  else
+    echo $EVENT_DATA | jq -r '.body' > /tmp/temp.zip # extract body part of $EVENT_DATA which is a json format (https://docs.aws.amazon.com/ja_jp/lambda/latest/dg/urls-invocation.html)
+
+    cd /tmp
+
+    base64 -d temp.zip > temp2.txt # body is base64 encoded on receiving posts
+    sed -e "s/\"//g" temp2.txt > temp2.zip # remove double quotation from file
+
+    base64 -d temp2.zip > input.zip # body is base64 encoded on axios of frontend.
+
+    unzip -oOcp932 input.zip # unzipped files (SHIFT-JIS) are expaned in the current directory
+
+    MD_FILE_NAME=$(find . -name \*md -type f)
+    /var/task/pandoc-3.1.3/bin/pandoc "${MD_FILE_NAME##*/}" --from=markdown --to=docx --reference-doc=/var/task/reference.docx --output=output.docx --standalone
+
+    # Extract request ID by scraping response headers received above
+    REQUEST_ID=$(grep -Fi Lambda-Runtime-Aws-Request-Id "$HEADERS" | tr -d '[:space:]' | cut -d: -f2)
+
+    # Send the response back to the client
+    curl -X POST --data-binary @/tmp/output.docx "http://${AWS_LAMBDA_RUNTIME_API}/2018-06-01/runtime/invocation/$REQUEST_ID/response"
+  fi
+done

@@ -1,0 +1,109 @@
+<!-- click on GO LIVE to activate on-time reload -->
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <title>HTML Sample</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
+    />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
+    <script>
+      const imgLoad = () => {
+        const image = new Image();
+        image.crossOrigin = "anonymous";
+        image.width = 500;
+        image.height = 300;
+
+        return new Promise((resolve) => {
+          image.onload = () => {
+            resolve(image);
+          };
+          image.src = "base64:XXXXXXXX";
+        });
+      };
+    </script>
+  </head>
+  <body>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        var elems = document.querySelectorAll(".materialboxed");
+        var instances = M.Materialbox.init(elems);
+      });
+
+      $(document).ready(function () {
+        $(".materialboxed").materialbox();
+      });
+    </script>
+
+    <script>
+      function addImageToDom(imagePath) {
+        document.write(
+          `<div class="col s6"><img class="materialboxed" loading="lazy" width="100%" src=${imagePath}></div>`
+        );
+      }
+      const imageDom = (imagePath) =>
+        `<div class="col s6"><img class="materialboxed" loading="lazy" width="100%" src=${imagePath}></div>`;
+
+      function addImageList(tag, data) {
+        let string =
+          `<h6>${tag}</h6><div class="row">` +
+          data.map((imagePath) => imageDom(imagePath)).join("\n") +
+          "</div>";
+        document.write(string);
+      }
+    </script>
+
+    <div class="row">
+      <div class="col s12">
+        <ul id="album-index" class="collapsible" data-collapsible="expandable">
+          <li class="album-nav-year" id="2022">
+            <div
+              class="collapsible-header album-nav-header"
+              style="padding-left: 30px"
+            >
+              2022年度
+            </div>
+            <div class="collapsible-body album-nav-body">
+              <script>
+                addImageList("追いコン", [
+                  "assets/ou1.jpeg",
+                  "assets/ou2.jpeg",
+                  "assets/ou3.jpeg",
+                  "assets/ou4.jpeg",
+                ]);
+                addImageList("研究会", [
+                  "assets/ou1.jpeg",
+                  "assets/ou2.jpeg",
+                  "assets/ou3.jpeg",
+                  "assets/ou4.jpeg",
+                ]);
+              </script>
+            </div>
+          </li>
+
+          <li class="album-nav-year" id="2020">
+            <div
+              class="collapsible-header album-nav-header"
+              style="padding-left: 30px"
+            >
+              2020年度
+            </div>
+            <div class="collapsible-body album-nav-body">
+              <h6>コロナ禍のため自粛</h6>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <script>
+      $(document).ready(function () {
+        $(".collapsible").collapsible();
+      });
+    </script>
+  </body>
+</html>

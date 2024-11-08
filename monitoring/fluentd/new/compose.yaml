@@ -1,0 +1,23 @@
+version: "3.8"
+services:
+  fluentd:
+    container_name: fluentd
+    image: fluent/fluentd:v1.12.0-debian-1.0
+    volumes:
+      - ./fluentd:/fluentd/etc
+    ports:
+      - "24224:24224"
+      - "24224:24224/udp"
+      - "514:514"
+      - "514:514/udp"
+    logging:
+      driver: json-file
+      options:
+        max-size: 10m
+        max-file: '100'
+    restart: always
+    networks:
+      - monitoring
+
+networks:
+  monitoring:

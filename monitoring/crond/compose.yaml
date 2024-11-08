@@ -1,0 +1,11 @@
+version: "3"
+services:
+  crond:
+    build:
+      context: ./crond
+      network: host
+    restart: unless-stopped
+    container_name: crond-fluentd
+    user: root
+    volumes:
+      - "./logs:/var/log"

@@ -1,0 +1,1 @@
+2 20 * * * /usr/bin/find /var/log/ -mtime +60 -exec rm {} \; >> /var/log/crond.log

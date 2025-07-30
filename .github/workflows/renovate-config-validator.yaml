@@ -15,4 +15,4 @@ jobs:
           submodules: true
 
       - name: validate renovate.json
-        run: npx --package=renovate -c renovate-config-validator
+        run: npx --package=renovate@latest -c renovate-config-validator

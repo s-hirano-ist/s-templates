@@ -3,7 +3,12 @@
 # - ghalint: https://github.com/suzuki-shunsuke/ghalint
 name: github-actions-lint
 
-on: workflow_call
+on:
+  workflow_call:
+  pull_request:
+    paths:
+      - .github/workflows/*.yaml
+      - .github/workflows/*.yml
 
 env:
   # NOTE: actionlint をアップデートする場合は、 ACTIONLINT_VERSION, ACTIONLINT_CHECKSUM を更新してください

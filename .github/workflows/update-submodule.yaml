@@ -1,6 +1,11 @@
 name: update-submodules
 
-on: workflow_call
+on:
+  workflow_call:
+    secrets:
+      ACTIONS_GITHUB_TOKEN:
+        required: true
+        description: "GitHub token for checkout and PR creation"
 
 jobs:
   update-submodules:

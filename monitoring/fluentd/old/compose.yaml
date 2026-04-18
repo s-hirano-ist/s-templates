@@ -31,7 +31,7 @@ services:
       - es-data:/usr/share/elasticsearch/data
 
   kibana:
-    image: docker.elastic.co/kibana/kibana:7.13.1
+    image: docker.elastic.co/kibana/kibana:9.3.3
     container_name: kibana
     environment:
       - ELASTICSEARCH_USERNAME=${ELASTICSEARCH_USERNAME}

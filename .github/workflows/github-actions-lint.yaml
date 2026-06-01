@@ -10,15 +10,6 @@ on:
       - .github/workflows/*.yaml
       - .github/workflows/*.yml
 
-env:
-  ACTIONLINT_OS: linux
-  ACTIONLINT_ARCH: amd64
-  ACTIONLINT_VERSION: 1.7.12
-
-  GHALINT_OS: linux
-  GHALINT_ARCH: amd64
-  GHALINT_VERSION: 1.5.6
-
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref || github.run_id }}
   cancel-in-progress: true
@@ -36,28 +27,16 @@ jobs:
           submodules: true
           persist-credentials: false
 
-      - name: Download actionlint
-        run: |
-          ASSET="actionlint_${ACTIONLINT_VERSION}_${ACTIONLINT_OS}_${ACTIONLINT_ARCH}.tar.gz"
-          BASE="https://github.com/rhysd/actionlint/releases/download/v${ACTIONLINT_VERSION}"
-          curl -fsSL -o "${ASSET}" "${BASE}/${ASSET}"
-          curl -fsSL -o actionlint_checksums.txt "${BASE}/actionlint_${ACTIONLINT_VERSION}_checksums.txt"
-          grep " ${ASSET}$" actionlint_checksums.txt | shasum -a 256 -c -
-          tar xzf "${ASSET}"
-          ./actionlint -version
+      - name: Setup mise
+        uses: jdx/mise-action@1648a7812b9aeae629881980618f079932869151 # v4.0.1
+        with:
+          mise_toml: |
+            [tools]
+            actionlint = "1.7.12"
+            ghalint = "1.5.5"
 
       - name: Run actionlint
-        run: ./actionlint -color
-
-      - name: Download ghalint
-        run: |
-          ASSET="ghalint_${GHALINT_VERSION}_${GHALINT_OS}_${GHALINT_ARCH}.tar.gz"
-          BASE="https://github.com/suzuki-shunsuke/ghalint/releases/download/v${GHALINT_VERSION}"
-          curl -fsSL -o "${ASSET}" "${BASE}/${ASSET}"
-          curl -fsSL -o ghalint_checksums.txt "${BASE}/ghalint_${GHALINT_VERSION}_checksums.txt"
-          grep " ${ASSET}$" ghalint_checksums.txt | shasum -a 256 -c -
-          tar xzf "${ASSET}"
-          ./ghalint version
+        run: actionlint -color
 
       - name: Run ghalint
-        run: ./ghalint run
+        run: ghalint run

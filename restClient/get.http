@@ -1,7 +1,0 @@
-GET http://localhost:8080/v1/news-detail
-Authorization: Basic user pass
-
-###
-
-GET http://localhost:8080/v1/news-detail
-Authorization: Digest user pass

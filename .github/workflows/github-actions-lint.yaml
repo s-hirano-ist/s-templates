@@ -33,7 +33,7 @@ jobs:
           mise_toml: |
             [tools]
             actionlint = "1.7.12"
-            ghalint = "1.5.5"
+            ghalint = "1.5.6"
 
       - name: Run actionlint
         run: actionlint -color

@@ -8,7 +8,7 @@
         "/^\\.github/workflows/github-actions-lint\\.ya?ml$/"
       ],
       "matchStrings": [
-        "ACTIONLINT_VERSION:\\s*(?<currentValue>\\S+)"
+        "\\bactionlint\\s*=\\s*\"(?<currentValue>[^\"]+)\""
       ],
       "datasourceTemplate": "github-releases",
       "depNameTemplate": "rhysd/actionlint",
@@ -20,7 +20,7 @@
         "/^\\.github/workflows/github-actions-lint\\.ya?ml$/"
       ],
       "matchStrings": [
-        "GHALINT_VERSION:\\s*(?<currentValue>\\S+)"
+        "\\bghalint\\s*=\\s*\"(?<currentValue>[^\"]+)\""
       ],
       "datasourceTemplate": "github-releases",
       "depNameTemplate": "suzuki-shunsuke/ghalint",

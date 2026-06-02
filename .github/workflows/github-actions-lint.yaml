@@ -1,6 +1,7 @@
-# actionlint と ghalint を使って GitHub Actions の静的解析する
+# actionlint と ghalint と zizmor を使って GitHub Actions の静的解析する
 # - actionlint: https://github.com/rhysd/actionlint
 # - ghalint: https://github.com/suzuki-shunsuke/ghalint
+# - zizmor: https://github.com/zizmorcore/zizmor
 name: github-actions-lint
 
 on:
@@ -34,9 +35,15 @@ jobs:
             [tools]
             actionlint = "1.7.12"
             ghalint = "1.5.5"
+            zizmor = "1.24.1"
 
       - name: Run actionlint
         run: actionlint -color
 
       - name: Run ghalint
         run: ghalint run
+
+      - name: Run zizmor
+        run: zizmor .github/workflows/
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

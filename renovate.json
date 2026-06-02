@@ -25,6 +25,18 @@
       "datasourceTemplate": "github-releases",
       "depNameTemplate": "suzuki-shunsuke/ghalint",
       "extractVersionTemplate": "^v(?<version>.*)$"
+    },
+    {
+      "customType": "regex",
+      "managerFilePatterns": [
+        "/^\\.github/workflows/github-actions-lint\\.ya?ml$/"
+      ],
+      "matchStrings": [
+        "\\bzizmor\\s*=\\s*\"(?<currentValue>[^\"]+)\""
+      ],
+      "datasourceTemplate": "github-releases",
+      "depNameTemplate": "zizmorcore/zizmor",
+      "extractVersionTemplate": "^v(?<version>.*)$"
     }
   ]
 }

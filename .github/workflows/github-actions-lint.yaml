@@ -33,8 +33,11 @@ jobs:
         with:
           mise_toml: |
             [tools]
+            # renovate: datasource=github-releases depName=actionlint packageName=rhysd/actionlint
             actionlint = "1.7.12"
+            # renovate: datasource=github-releases depName=ghalint packageName=suzuki-shunsuke/ghalint
             ghalint = "1.5.5"
+            # renovate: datasource=github-releases depName=zizmor packageName=zizmorcore/zizmor
             zizmor = "1.25.2"
 
       - name: Run actionlint

@@ -38,7 +38,7 @@ jobs:
             # renovate: datasource=github-releases depName=ghalint packageName=suzuki-shunsuke/ghalint
             ghalint = "1.5.5"
             # renovate: datasource=github-releases depName=zizmor packageName=zizmorcore/zizmor
-            zizmor = "1.25.2"
+            zizmor = "1.29.0"
 
       - name: Run actionlint
         run: actionlint -color

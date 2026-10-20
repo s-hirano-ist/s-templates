@@ -41,7 +41,9 @@ jobs:
             zizmor = "1.31.1"
 
       - name: Run actionlint
-        run: actionlint -color
+        # Remove this workaround once actionlint supports Ubuntu 26.04.
+        # https://github.com/rhysd/actionlint/issues/682
+        run: actionlint -color -ignore '^label "ubuntu-26\.04(-arm)?" is unknown\.'
 
       - name: Run ghalint
         run: ghalint run

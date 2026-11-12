@@ -11,8 +11,22 @@
         "/^\\.github/workflows/github-actions-lint\\.yaml$/"
       ],
       "matchStrings": [
-        "# renovate: datasource=(?<datasource>\\S+) depName=(?<depName>\\S+) packageName=(?<packageName>\\S+)\\s+[A-Za-z0-9_-]+\\s*=\\s*\"(?<currentValue>[^\"]+)\""
+        "# renovate: datasource=(?<datasource>\\S+) depName=(?<depName>\\S+) packageName=(?<packageName>\\S+)\\s+[^\\r\\n=]+\\s*=\\s*\"(?<currentValue>[^\\\"]+)\""
       ]
     }
-  ]
+  ],
+  "packageRules": [
+    {
+      "matchManagers": [
+        "github-actions"
+      ],
+      "matchDepTypes": [
+        "action"
+      ],
+      "pinDigests": false
+    }
+  ],
+  "constraints": {
+    "ghActionsLock": "v0.4.1"
+  }
 }

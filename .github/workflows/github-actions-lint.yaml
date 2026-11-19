@@ -33,7 +33,7 @@ jobs:
           persist-credentials: false
 
       - name: Setup mise
-        uses: jdx/mise-action@v5.2.9
+        uses: jdx/mise-action@v5.2.10
         with:
           mise_toml: |
             [tools]

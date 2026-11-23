@@ -42,7 +42,7 @@ jobs:
             # renovate: datasource=github-releases depName=ghalint packageName=suzuki-shunsuke/ghalint
             "github:suzuki-shunsuke/ghalint" = "1.6.0"
             # renovate: datasource=github-releases depName=zizmor packageName=zizmorcore/zizmor
-            zizmor = "1.32.0"
+            zizmor = "1.33.1"
 
       - name: Run actionlint
         # actionlint 1.7.12 does not yet recognize Ubuntu 26.04 or same-repository $/ actions.
